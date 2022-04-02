@@ -1,0 +1,15 @@
+table {
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 25px 0;
+}
+
+.forecast-mode-toggle {
+	position: relative;
+	float: right;
+}

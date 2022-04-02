@@ -1,0 +1,52 @@
+<div class="container">
+	<mat-form-field>
+		<mat-label>City</mat-label>
+		<input
+			type="text"
+			placeholder="New York"
+			aria-label="City"
+			matInput
+			[formControl]="searhBox"
+			[matAutocomplete]="auto"
+		/>
+	</mat-form-field>
+	<mat-autocomplete
+		(optionSelected)="selectCity($event.option.value)"
+		#auto="matAutocomplete"
+		[displayWith]="getAutoCompleteDisplayValue"
+	>
+		<mat-option *ngFor="let option of options$ | async" [value]="option">
+			{{ option.name }}
+		</mat-option>
+	</mat-autocomplete>
+
+	<mat-button-toggle-group
+		name="fontStyle"
+		[formControl]="toggleForeCastMode"
+		class="forecast-mode-toggle"
+		aria-label="ForeCast Mode Toggle"
+	>
+		<mat-button-toggle value="hourly">hourly</mat-button-toggle>
+		<mat-button-toggle value="daily">daily</mat-button-toggle>
+	</mat-button-toggle-group>
+
+	<table
+		mat-table
+		*ngIf="columns$ | async as columns"
+		[dataSource]="weatherSource$"
+		class="mat-elevation-z8"
+		aria-label="ForeCast Table"
+	>
+		<ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+			<th mat-header-cell *matHeaderCellDef>
+				{{ column.header }}
+			</th>
+			<td mat-cell *matCellDef="let row">
+				{{ column.cell(row) }}
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="headerColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: headerColumns"></tr>
+	</table>
+</div>

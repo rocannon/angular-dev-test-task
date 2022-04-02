@@ -1,0 +1,1 @@
+export type ForeCastModeType = 'hourly' | 'daily';
